@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>A Simple Framework for Contrastive Learning of Visual Representations | PrécisNapse</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="A Simple Framework for Contrastive Learning of Visual Representations" />
+<meta name="author" content="Kushaan Gupta" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. International Conference on Machine Learning 2020." />
+<meta property="og:description" content="Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. International Conference on Machine Learning 2020." />
+<link rel="canonical" href="https://kushaangupta.github.io/precisnapse/deep-learning/unsupervised-learning/self-supervised-learning/contrastive-learning/2022/02/13/arxiv_2002.05709.html" />
+<meta property="og:url" content="https://kushaangupta.github.io/precisnapse/deep-learning/unsupervised-learning/self-supervised-learning/contrastive-learning/2022/02/13/arxiv_2002.05709.html" />
+<meta property="og:site_name" content="PrécisNapse" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-02-13T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A Simple Framework for Contrastive Learning of Visual Representations" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Kushaan Gupta"},"dateModified":"2022-02-13T00:00:00-06:00","datePublished":"2022-02-13T00:00:00-06:00","description":"Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. International Conference on Machine Learning 2020.","headline":"A Simple Framework for Contrastive Learning of Visual Representations","mainEntityOfPage":{"@type":"WebPage","@id":"https://kushaangupta.github.io/precisnapse/deep-learning/unsupervised-learning/self-supervised-learning/contrastive-learning/2022/02/13/arxiv_2002.05709.html"},"url":"https://kushaangupta.github.io/precisnapse/deep-learning/unsupervised-learning/self-supervised-learning/contrastive-learning/2022/02/13/arxiv_2002.05709.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/precisnapse/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://kushaangupta.github.io/precisnapse/feed.xml" title="PrécisNapse" /><link rel="shortcut icon" type="image/x-icon" href="/precisnapse/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+<style>
+    @import url('https://rsms.me/inter/inter.css');
+    * {
+        font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 700 !important;
+    }
+    pre * { font-family: monospace; }
+</style></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/precisnapse/">PrécisNapse</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/precisnapse/about/">About</a><a class="page-link" href="/precisnapse/search/">Search</a><a class="page-link" href="/precisnapse/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">A Simple Framework for Contrastive Learning of Visual Representations</h1><p class="page-description">Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. International Conference on Machine Learning 2020.
+</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-02-13T00:00:00-06:00" itemprop="datePublished">
+        Feb 13, 2022
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/precisnapse/categories/#deep-learning">deep-learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/precisnapse/categories/#unsupervised-learning">unsupervised-learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/precisnapse/categories/#self-supervised-learning">self-supervised-learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/precisnapse/categories/#contrastive-learning">contrastive-learning</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="why-is-this-work-important">Why is this work important?</h2>
+
+<p>The contrastive learning idea<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> <em>(of making representations of an image agree
+with each other)</em> is not new; it dates back to a Becker &amp; Hintor paper<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>
+in 1992. But previously proposed contrastive learning requires specialized
+architecture or a memory bank.</p>
+
+<p>This new framework removes the need for that. They spell out the necessary
+elements for having a successful simple contrastive learning procedure.</p>
+
+<h2 id="why-is-this-work-different">Why is this work different?</h2>
+
+<p>SimCLR algorithm is composed of three steps:</p>
+<ol>
+  <li>transformation,</li>
+  <li>representation,</li>
+  <li>projection.</li>
+</ol>
+
+<p>The latter two steps are done by a neural network. The projection neural
+network is typically one or two linear <em>(or non-linear)</em> layer.</p>
+
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>In this contrastive learning setup, an image is transformed in two different
+ways. These two resulting data points are called a <strong>positive pair</strong>. Each
+will be inputted to the same neural network <em>(composed of a representation
+network and a projection head network)</em> that will extract a feature vector
+for each of them.</p>
+
+<p>We want the extracted representations of two transformed images to agree with
+each other. The contrastive learning task will have a loss function that is
+going to maximize the “agreement” between these two feature vectors.</p>
+
+<p>With these representations, we can then use these for linear classification. Or
+we can use the obtained network as an initial point for fine-tuning or transfer
+learning procedures.</p>
+
+<p>The authors try out many different conditions, including different combinations
+of data augmentations, different architectures, and loss functions.</p>
+
+<p>The end goal of experimenting with these different conditions is to determine
+which one leads to the best representations for a subsequent supervised
+learning task. They use a “<strong>linear evaluation protocol</strong>” which is going to
+train a classifier directly on these extracted representations, from the
+different settings. The better the final performance on the classification
+task, the better the representation is thought to be.</p>
+
+<h2 id="what-are-the-results">What are the results?</h2>
+
+<p>Learning representations in the unsupervised setting benefit from<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>:</p>
+<ul>
+  <li>Composing augmentations, particularly the combination of random cropping and
+random color distortion. Unsupervised learning benefits more from this than
+supervised counterparts.</li>
+  <li>Augmentations can replace the design of complex architectures as previously
+done in contrastive learning. For example, random cropping of an image can
+easily provide adjacent viewers and global/local views for the object in that
+image.</li>
+  <li>Increasing depth and width. Unsupervised learning benefits more from this
+than supervised counterparts.</li>
+  <li>Adding a projection head improves the representation learned. If it’s a
+non-linear projection it’s better. However note that the representation used
+for the downstream task should be that of the layer before the projection head,
+not the one after <em>(See Section 4.2)</em>.</li>
+  <li>The contrastive training loss that resulted in the best performance is the
+NT-Xent loss <em>(Normalized, Temperature-scaled cross entropy loss)</em>. They find
+that the use of l2 normalization and temperature scaling is crucial for the
+resulting representation.</li>
+  <li>Training longer and larger batch sizes leads to better representations as
+well. That is because the network ends up seeing more negative examples, which
+facilitates convergence.</li>
+  <li>Compared with state-of-the-art <em>(other methods for learning
+representations)</em>: they consistently outperform them for the linear evaluation
+mode and in the semi-supervised mode <em>(in which the model is fine-tuned over
+few data points in ImageNet)</em>.</li>
+</ul>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://arxiv.org/abs/2002.05709">Main paper</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://doi.org/10.1038/355161a0">Becker, S., Hinton, G. Self-organizing neural network that discovers surfaces in random-dot stereograms. Nature 355, 161–163 (1992).</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://github.com/google-research/simclr">Main code</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div><a class="u-url" href="/precisnapse/deep-learning/unsupervised-learning/self-supervised-learning/contrastive-learning/2022/02/13/arxiv_2002.05709.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/precisnapse/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/precisnapse/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/precisnapse/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">Kushaan Gupta</li>
+          <li><a class="u-email" href="mailto:gkushaan@rediffmail.com">gkushaan@rediffmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>My library of papers I read with précis, classification &amp; comments for active engagement, and delegating recall &amp; associative learning to manipulations of the search engine.
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+    <a href="https://github.com/kushaangupta">
+      <svg class="svg-icon">
+        <use xlink:href="/precisnapse/assets/minima-social-icons.svg#github"></use>
+      </svg>
+      <!-- <span class="username">kushaangupta</span> -->
+    </a>
+  </li><li>
+    <a href="https://www.linkedin.com/in/kushaan">
+      <svg class="svg-icon">
+        <use xlink:href="/precisnapse/assets/minima-social-icons.svg#linkedin"></use>
+      </svg>
+      <!-- <span class="username">kushaan</span> -->
+    </a>
+  </li><li>
+    <a href="https://www.twitter.com/KushaanGupta">
+      <svg class="svg-icon">
+        <use xlink:href="/precisnapse/assets/minima-social-icons.svg#twitter"></use>
+      </svg>
+      <!-- <span class="username">KushaanGupta</span> -->
+    </a>
+  </li><li>
+    <a href="https://orcid.org/0000-0002-8491-0743">
+      <img alt="ORCID logo"
+        src="https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png"
+        width="16" height="16" />
+      <!-- <span class="username">ORCID</span> -->
+    </a>
+  </li><li>
+    <a href="https://scholar.google.com/citations?user=k6-opNMAAAAJ">
+      <img alt="Scholar logo"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Scholar_logo.svg/1024px-Google_Scholar_logo.svg.png"
+        width="16" height="16" />
+      <!-- <span class="username">Scholar</span> -->
+    </a>
+  </li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
