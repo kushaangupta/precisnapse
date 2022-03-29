@@ -144,6 +144,7 @@ elements for having a successful simple contrastive learning procedure.</p>
 <h2 id="why-is-this-work-different">Why is this work different?</h2>
 
 <p>SimCLR algorithm is composed of three steps:</p>
+
 <ol>
   <li>transformation,</li>
   <li>representation,</li>
@@ -154,6 +155,7 @@ elements for having a successful simple contrastive learning procedure.</p>
 network is typically one or two linear <em>(or non-linear)</em> layer.</p>
 
 <h2 id="how-does-it-work">How does it work?</h2>
+
 <p>In this contrastive learning setup, an image is transformed in two different
 ways. These two resulting data points are called a <strong>positive pair</strong>. Each
 will be inputted to the same neural network <em>(composed of a representation
@@ -180,7 +182,8 @@ task, the better the representation is thought to be.</p>
 
 <h2 id="what-are-the-results">What are the results?</h2>
 
-<p>Learning representations in the unsupervised setting benefit from[^3]:</p>
+<p>Learning representations in the unsupervised setting benefit from<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>:</p>
+
 <ul>
   <li>Composing augmentations, particularly the combination of random cropping and
 random color distortion. Unsupervised learning benefits more from this than
@@ -211,12 +214,15 @@ few data points in ImageNet)</em>.</li>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p><a href="https://arxiv.org/abs/2002.05709">Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. International Conference on Machine Learning (2020).</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p><a href="https://arxiv.org/abs/2002.05709">Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton.
+International Conference on Machine Learning (2020).</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
       <p><a href="https://doi.org/10.1038/355161a0">Becker, S., Hinton, G. Self-organizing neural network that discovers
-surfaces in random-dot stereograms. Nature 355, 161–163 (1992).</a>
-[^3]: <a href="https://github.com/google-research/simclr">Main code</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+surfaces in random-dot stereograms. Nature 355, 161–163 (1992).</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://github.com/google-research/simclr">Main code</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
